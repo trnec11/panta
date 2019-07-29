@@ -17,10 +17,9 @@ $items = WorkPositionController::getIndex();
 
         <hr>
 
-
         <div class="columns">
             <div class="column is-two-fifths">
-                <form method="post" action="../../add.php">
+                <form method="post" action="../../addWorkPosition.php">
                     <div class="field">
                         <p class="subtitle">
                             Pridať pracovnú pozíciu

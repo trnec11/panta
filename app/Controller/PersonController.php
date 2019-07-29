@@ -17,4 +17,14 @@ class PersonController
 
         return $person->getPersons();
     }
+
+    public static function postIndex($parameters) {
+        $db = new Connection();
+        $queryBuilder = new QueryBuilder($db);
+        $person = new Person($queryBuilder);
+
+        $person->insertPerson($parameters);
+
+        header('Location: person.php');
+    }
 }
