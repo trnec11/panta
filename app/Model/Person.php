@@ -18,7 +18,12 @@ class Person
     /**
      * @var array
      */
-    private $requiredFields = ['first_name', 'last_name', 'prefix_name', 'email', 'phone', 'work_position_id'];
+    private $requiredFields = ['first_name', 'last_name', 'prefix_name', 'email', 'phone', 'work_position_id', 'salary'];
+
+    /**
+     * @var array
+     */
+    private $workPositions = [];
 
     /**
      * Person constructor.
@@ -33,7 +38,12 @@ class Person
      * @return mixed
      */
     public function getPersons() {
-        return $this->query->getList($this->table);
+        $result = [];
+        $result['persons'] = $this->query->getList($this->table);
+        $this->presetWorkPositions($this->query->getList('work_positions'));
+        $result['workPositions'] = $this->workPositions;
+
+        return $result;
     }
 
     /**
@@ -48,7 +58,7 @@ class Person
      * @param $parameters
      */
     public function insertPerson($parameters) {
-        if (!empty(array_diff($parameters, $this->requiredFields))) {
+        if (!empty(array_diff(array_keys($parameters), $this->requiredFields))) {
             die('Whoops, something went wrong.');
         }
         $this->query->insertItem($parameters, $this->table);
@@ -67,6 +77,15 @@ class Person
      */
     public function deletePerson($id) {
         $this->query->deleteItemByID($id, $this->table);
+    }
+
+    /**
+     * @param array $workPositions
+     */
+    private function presetWorkPositions(array $workPositions) {
+        foreach ($workPositions as $workPosition) {
+            $this->workPositions[$workPosition->id] = $workPosition->title;
+        }
     }
 
 }

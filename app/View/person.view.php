@@ -50,8 +50,9 @@
                       <div class="control">
                           <div class="select">
                               <select name="work_position_id">
-                                  <option>Select dropdown</option>
-                                  <option>With options</option>
+                                <?php foreach ($items['workPositions'] as $key => $workPosition) : ?>
+                                  <option value="<?= $key ?>"><?= $workPosition ?></option>
+                                <?php endforeach; ?>
                               </select>
                           </div>
                       </div>
@@ -79,15 +80,15 @@
           </thead>
           <tbody>
 
-              <?php foreach ($items as $item) : ?>
+              <?php foreach ($items['persons'] as $person) : ?>
               <tr>
-                  <td><?= $item->prefix_name ?></td>
-                  <td><?= $item->first_name ?></td>
-                  <td><?= $item->last_name ?></td>
-                  <td><?= $item->email ?></td>
-                  <td><?= $item->phone ?></td>
-                  <td><?= $item->work_position_id ?></td>
-                  <td><?= $item->salary ?></td>
+                  <td><?= $person->prefix_name ?></td>
+                  <td><?= $person->first_name ?></td>
+                  <td><?= $person->last_name ?></td>
+                  <td><?= $person->email ?></td>
+                  <td><?= $person->phone ?></td>
+                  <td><?= $items['workPositions'][$person->work_position_id] ?></td>
+                  <td><?= $person->salary ?></td>
               </tr>
               <?php endforeach; ?>
           </tbody>
