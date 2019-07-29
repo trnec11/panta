@@ -7,15 +7,8 @@ namespace App\Model;
 
 class QueryBuilder
 {
-    /**
-     * @var \PDO
-     */
     private $db;
 
-    /**
-     * QueryBuilder constructor.
-     * @param Connection $db
-     */
     public function __construct(Connection $db)
     {
         $this->db = $db->makeConnection();
@@ -29,7 +22,7 @@ class QueryBuilder
         $statement = $this->db->prepare("select * from {$table}");
         $statement->execute();
 
-        return $statement->fetchAll();
+        return $statement->fetchAll(\PDO::FETCH_OBJ);
     }
 
     /**
@@ -44,10 +37,6 @@ class QueryBuilder
         return $statement->fetchObject();
     }
 
-    /**
-     * @param array $parameters
-     * @param $table
-     */
     public function insertItem(array $parameters, $table) {
         $query = sprintf(
           'insert into %s (%s) values (%s)',
@@ -64,11 +53,6 @@ class QueryBuilder
         }
     }
 
-    /**
-     * @param $id
-     * @param array $parameters
-     * @param $table
-     */
     public function updateItemById($id, array $parameters, $table) {
         $query = sprintf('update %s set %s where id = ' . $id, $table,  implode(', ', array_keys($parameters)) . '=' .
             ':' . implode(', :', array_keys($parameters)));

@@ -16,6 +16,11 @@ class Person
     private $query;
 
     /**
+     * @var array
+     */
+    private $requiredFields = ['first_name', 'last_name', 'prefix_name', 'email', 'phone', 'work_position_id'];
+
+    /**
      * Person constructor.
      * @param QueryBuilder $query
      */
@@ -43,6 +48,9 @@ class Person
      * @param $parameters
      */
     public function insertPerson($parameters) {
+        if (!empty(array_diff($parameters, $this->requiredFields))) {
+            die('Whoops, something went wrong.');
+        }
         $this->query->insertItem($parameters, $this->table);
     }
 
