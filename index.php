@@ -1,10 +1,10 @@
 <?php
 
 require 'vendor/autoload.php';
-use App\Model\Database;
+use App\Model\Connection;
 use App\Model\WorkPosition;
 
-$db = new Database();
+$db = new Connection();
 $workPosition = new WorkPosition($db);
 $data = $workPosition->getWorkPositions();
 $stop = 5;

@@ -6,13 +6,13 @@ class WorkPosition
 {
     public $table = 'work_positions';
     /**
-     * @var Database
+     * @var Connection
      */
     private $db;
 
-    public function __construct(Database $db)
+    public function __construct(Connection $db)
     {
-        $this->db = $db->getConnection();
+        $this->db = $db->makeConnection();
     }
 
     /**
