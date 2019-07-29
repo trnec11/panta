@@ -3,7 +3,6 @@
 
 namespace App\Model;
 
-//use Config\Configuration;
 use Config\Configuration;
 use PDO;
 use PDOException;
@@ -18,6 +17,7 @@ class Connection
     private $host;
     private $user;
     private $password;
+    public $dbName;
 
     private function setConfig()
     {
@@ -36,6 +36,4 @@ class Connection
             die($e->getMessage());
         }
     }
-
-
 }

@@ -4,25 +4,19 @@ namespace App\Model;
 
 class WorkPosition
 {
-    public $table = 'work_positions';
-    /**
-     * @var Connection
-     */
-    private $db;
+    private $table = 'work_positions';
+    private $query;
 
-    public function __construct(Connection $db)
+    public function __construct(QueryBuilder $query)
     {
-        $this->db = $db->makeConnection();
+        $this->query = $query;
     }
 
-    /**
-     * @return mixed
-     */
     public function getWorkPositions() {
-        $pdo = $this->db;
-        $statement = $pdo->prepare('SELECT * FROM work_positions');
-        $statement->execute();
+        return print_r($this->query->getList($this->table));
+    }
 
-        return print_r($statement->fetchAll());
+    public function updateWorkPosition($workPosition) {
+
     }
 }

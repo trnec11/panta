@@ -3,8 +3,10 @@
 require 'vendor/autoload.php';
 use App\Model\Connection;
 use App\Model\WorkPosition;
+use App\Model\QueryBuilder;
 
 $db = new Connection();
-$workPosition = new WorkPosition($db);
+$queryBuilder = new QueryBuilder($db);
+$workPosition = new WorkPosition($queryBuilder);
 $data = $workPosition->getWorkPositions();
 $stop = 5;
