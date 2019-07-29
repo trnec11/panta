@@ -46,7 +46,7 @@ class WorkPosition
      * @param $parameters
      */
     public function insertWorkPosition($parameters) {
-        if (!empty(array_diff($parameters, $this->requiredFields))) {
+        if (!empty(array_diff(array_keys($parameters), $this->requiredFields))) {
             die('Whoops, something went wrong.');
         }
         $this->query->insertItem($parameters, $this->table);
