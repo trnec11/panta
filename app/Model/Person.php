@@ -1,20 +1,22 @@
 <?php
 
+
 namespace App\Model;
 
-class WorkPosition
+
+class Person
 {
     /**
      * @var string
      */
-    private $table = 'work_positions';
+    private $table = 'persons';
     /**
      * @var QueryBuilder
      */
     private $query;
 
     /**
-     * WorkPosition constructor.
+     * Person constructor.
      * @param QueryBuilder $query
      */
     public function __construct(QueryBuilder $query)
@@ -25,7 +27,7 @@ class WorkPosition
     /**
      * @return mixed
      */
-    public function getWorkPositions() {
+    public function getPersons() {
         return $this->query->getList($this->table);
     }
 
@@ -33,14 +35,14 @@ class WorkPosition
      * @param $id
      * @return mixed
      */
-    public function getWorkPosition($id) {
+    public function getPerson($id) {
         return $this->query->getItemById($id, $this->table);
     }
 
     /**
      * @param $parameters
      */
-    public function insertWorkPosition($parameters) {
+    public function insertPerson($parameters) {
         $this->query->insertItem($parameters, $this->table);
     }
 
@@ -48,14 +50,15 @@ class WorkPosition
      * @param $id
      * @param $parameters
      */
-    public function updateWorkPosition($id, $parameters) {
+    public function updatePerson($id, $parameters) {
         $this->query->updateItemById($id, $parameters, $this->table);
     }
 
     /**
      * @param $id
      */
-    public function deleteWorkPosition($id) {
+    public function deletePerson($id) {
         $this->query->deleteItemByID($id, $this->table);
     }
+
 }

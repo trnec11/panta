@@ -8,4 +8,5 @@ class Configuration
     public static $user = 'admin';
     public static $password = 'secret';
     public static $dbName = 'cm';
+    public static $options = [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_WARNING];
 }
