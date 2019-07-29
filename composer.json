@@ -1,0 +1,14 @@
+{
+    "name": "apiportal/pantarhei",
+    "description": "employee report app",
+    "authors": [
+        {
+            "name": "Martin Trnka",
+            "email": "martin.trnka94@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": { "App\\": "app/" }
+    }
+}
