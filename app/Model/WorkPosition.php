@@ -4,25 +4,66 @@ namespace App\Model;
 
 class WorkPosition
 {
-    public $table = 'work_positions';
     /**
-     * @var Database
+     * @var string
      */
-    private $db;
+    private $table = 'work_positions';
+    /**
+     * @var QueryBuilder
+     */
+    private $query;
 
-    public function __construct(Database $db)
+    /**
+     * @var array
+     */
+    private $requiredFields = ['title', 'salary'];
+
+    /**
+     * WorkPosition constructor.
+     * @param QueryBuilder $query
+     */
+    public function __construct(QueryBuilder $query)
     {
-        $this->db = $db->getConnection();
+        $this->query = $query;
     }
 
     /**
      * @return mixed
      */
     public function getWorkPositions() {
-        $pdo = $this->db;
-        $statement = $pdo->prepare('SELECT * FROM work_positions');
-        $statement->execute();
+        return $this->query->getList($this->table);
+    }
 
-        return print_r($statement->fetchAll());
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getWorkPosition($id) {
+        return $this->query->getItemById($id, $this->table);
+    }
+
+    /**
+     * @param $parameters
+     */
+    public function insertWorkPosition($parameters) {
+        if (!empty(array_diff(array_keys($parameters), $this->requiredFields))) {
+            die('Whoops, something went wrong.');
+        }
+        $this->query->insertItem($parameters, $this->table);
+    }
+
+    /**
+     * @param $id
+     * @param $parameters
+     */
+    public function updateWorkPosition($id, $parameters) {
+        $this->query->updateItemById($id, $parameters, $this->table);
+    }
+
+    /**
+     * @param $id
+     */
+    public function deleteWorkPosition($id) {
+        $this->query->deleteItemByID($id, $this->table);
     }
 }
