@@ -54,8 +54,13 @@ class QueryBuilder
     }
 
     public function updateItemById($id, array $parameters, $table) {
-        $query = sprintf('update %s set %s where id = ' . $id, $table,  implode(', ', array_keys($parameters)) . '=' .
-            ':' . implode(', :', array_keys($parameters)));
+
+        $attrs = [];
+        foreach ($parameters as $key => $parameter) {
+            $attrs[] = $key . '=:' . $key;
+        }
+
+        $query = "update {$table} SET " . implode(', ', $attrs). " WHERE id={$id}";
 
         try {
             $statement = $this->db->prepare($query);

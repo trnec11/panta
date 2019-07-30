@@ -33,7 +33,7 @@ $items = WorkPositionController::getIndex();
                             <input name="salary" class="input is-info" type="text" placeholder="Mzda">
                         </div>
                     </div>
-                    <button type="submit" class="button">Ok</button>
+                    <button type="submit" class="button">Pridať</button>
                 </form>
             </div>
         </div>
@@ -50,8 +50,20 @@ $items = WorkPositionController::getIndex();
 
             <?php foreach ($items as $item) : ?>
                 <tr>
-                    <td><?= $item->title ?></td>
-                    <td><?= $item->salary ?></td>
+                    <form method="post" action="../../editWorkPosition.php">
+                        <td style="display: none"><input name="id" class="input is-info" type="hidden" value="<?= $item->id ?>"></td>
+                        <td><input name="title" class="input is-info" type="text" placeholder="Nazov" value="<?= $item->title ?>"></td>
+                        <td><input name="salary" class="input is-info" type="text" placeholder="Mzda" value="<?= $item->salary ?>"></td>
+                        <td>
+                            <button type="submit" class="button is-primary is-small">Editovať</button>
+                        </td>
+                    </form>
+                    <form method="post" action="../../deleteWorkPosition.php">
+                        <td style="display: none"><input name="id" class="input is-info" type="hidden" value="<?= $item->id ?>"></td>
+                        <td>
+                            <button type="submit" class="button is-danger is-small">Zmazať</button>
+                        </td>
+                    </form>
                 </tr>
             <?php endforeach; ?>
             </tbody>

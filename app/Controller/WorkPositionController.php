@@ -27,4 +27,26 @@ class WorkPositionController
 
         header('Location: index.php');
     }
+
+    public static function putIndex($parameters) {
+        $db = new Connection();
+        $queryBuilder = new QueryBuilder($db);
+        $workPosition = new WorkPosition($queryBuilder);
+        $id = (int)$parameters['id'];
+        unset($parameters['id']);
+
+        $workPosition->updateWorkPosition($id, $parameters);
+
+        header('Location: index.php');
+    }
+
+    public static function deleteIndex($id) {
+        $db = new Connection();
+        $queryBuilder = new QueryBuilder($db);
+        $workPosition = new WorkPosition($queryBuilder);
+
+        $workPosition->deleteWorkPosition($id);
+
+        header('Location: index.php');
+    }
 }
