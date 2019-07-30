@@ -4,7 +4,14 @@ use App\Controller\PersonController;
 
 include_once 'header.php';
 
-$items = PersonController::getIndex();
+session_start();
+
+if (isset($_SESSION, $_SESSION['persons'])) {
+    $items = $_SESSION;
+} else {
+    $items = PersonController::getIndex();
+}
+
 ?>
 
     <section class="section">
@@ -97,10 +104,6 @@ $items = PersonController::getIndex();
                                    value="<?= $person->email ?>"></td>
                         <td><input name="phone" class="input is-info" type="text" placeholder="Telefon"
                                    value="<?= $person->phone ?>"></td>
-                        <td><input name="work_position_id" class="input is-info" type="text"
-                                   placeholder="Pracovna pozicia"
-                                   value="<?= $person->work_position_id ?>"><?= $items['workPositions'][$person->work_position_id] ?>
-                        </td>
                         <td class="select">
                             <select name="work_position_id">
                                 <?php foreach ($items['workPositions'] as $key => $workPosition) : ?>
@@ -113,7 +116,7 @@ $items = PersonController::getIndex();
                             </select>
                         </td>
                         <td><input name="salary" class="input is-info" type="text" placeholder="Mzda"
-                                       value="<?= $person->salary ?>">
+                                   value="<?= $person->salary ?>">
                         </td>
                         <td>
                             <button type="submit" class="button is-primary is-small">Editovať</button>

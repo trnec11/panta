@@ -11,13 +11,25 @@ use App\Model\QueryBuilder;
 class PersonController
 {
     /**
+     * @param string $parameter
      * @return mixed
      */
-    public static function getIndex() {
+    public static function getIndex($parameter = '') {
         $db = new Connection();
         $queryBuilder = new QueryBuilder($db);
         $person = new Person($queryBuilder);
 
+        if (!empty($parameter)) {
+            session_start();
+
+            header('Location: person.php');
+            $_SESSION = $person->searchPerson($parameter);
+
+            return $_SESSION;
+        }
+
+        $_SESSION = null;
+        header('Location: person.php');
         return $person->getPersons();
     }
 

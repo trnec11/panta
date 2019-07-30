@@ -14,7 +14,8 @@
             <img src="https://trnec.sk/assets/img/logo.png" width="56" height="56">
         </a>
 
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+           data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -33,12 +34,13 @@
         </div>
 
         <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="field">
-                    <div class="control">
-                        <input class="input is-primary" type="text" placeholder="search">
-                    </div>
-            </div>
+            <?php if ($_SERVER['REQUEST_URI'] === '/person.php') : ?>
+                <div class="navbar-item">
+                    <form method="post" action="../../searchPerson.php">
+                        <input name="search" class="input is-info" type="text">
+                        <button type="submit" class="button is-primary is-small">Hĺadať</button>
+                    </form>
+                </div>
+            <?php endif; ?>
         </div>
-    </div>
 </nav>

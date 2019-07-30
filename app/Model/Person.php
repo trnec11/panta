@@ -46,6 +46,15 @@ class Person
         return $result;
     }
 
+    public function searchPerson($parameter) {
+        $result = [];
+        $result['persons'] = $this->query->searchItems($parameter, $this->table);
+        $this->presetWorkPositions($this->query->getList('work_positions'));
+        $result['workPositions'] = $this->workPositions;
+
+        return $result;
+    }
+
     /**
      * @param $id
      * @return mixed

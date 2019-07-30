@@ -7,8 +7,15 @@ namespace App\Model;
 
 class QueryBuilder
 {
+    /**
+     * @var \PDO
+     */
     private $db;
 
+    /**
+     * QueryBuilder constructor.
+     * @param Connection $db
+     */
     public function __construct(Connection $db)
     {
         $this->db = $db->makeConnection();
@@ -37,6 +44,10 @@ class QueryBuilder
         return $statement->fetchObject();
     }
 
+    /**
+     * @param array $parameters
+     * @param $table
+     */
     public function insertItem(array $parameters, $table) {
         $query = sprintf(
           'insert into %s (%s) values (%s)',
@@ -53,6 +64,11 @@ class QueryBuilder
         }
     }
 
+    /**
+     * @param $id
+     * @param array $parameters
+     * @param $table
+     */
     public function updateItemById($id, array $parameters, $table) {
 
         $attrs = [];
@@ -81,5 +97,24 @@ class QueryBuilder
         } catch (\PDOException $e) {
             die('Whoops, something went wrong.');
         }
+    }
+
+    /**
+     * @param $parameter
+     * @param $table
+     * @return array
+     */
+    public function searchItems($parameter, $table) {
+        $sql = " SELECT * FROM {$table} WHERE first_name like '%".$parameter."%' 
+            OR last_name like '%".$parameter."%' 
+            OR prefix_name like '%".$parameter."%'
+            OR email like '%".$parameter."%'
+            OR phone like '%".$parameter."%'
+            OR salary like '%".$parameter."%'";
+
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+
+        return $statement->fetchAll(\PDO::FETCH_OBJ);
     }
 }
