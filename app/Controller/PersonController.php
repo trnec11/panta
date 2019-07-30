@@ -10,6 +10,9 @@ use App\Model\QueryBuilder;
 
 class PersonController
 {
+    /**
+     * @return mixed
+     */
     public static function getIndex() {
         $db = new Connection();
         $queryBuilder = new QueryBuilder($db);
@@ -18,6 +21,9 @@ class PersonController
         return $person->getPersons();
     }
 
+    /**
+     * @param $parameters
+     */
     public static function postIndex($parameters) {
         $db = new Connection();
         $queryBuilder = new QueryBuilder($db);
@@ -28,6 +34,9 @@ class PersonController
         header('Location: person.php');
     }
 
+    /**
+     * @param $parameters
+     */
     public static function putIndex($parameters) {
         $db = new Connection();
         $queryBuilder = new QueryBuilder($db);
@@ -40,6 +49,9 @@ class PersonController
         header('Location: person.php');
     }
 
+    /**
+     * @param $id
+     */
     public static function deleteIndex($id) {
         $db = new Connection();
         $queryBuilder = new QueryBuilder($db);
